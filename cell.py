@@ -3,7 +3,7 @@ import random
 import minesweeper_settings
 import ctypes
 import sys
-
+    
 class Cell:
     all = []
     cell_count = minesweeper_settings.CELL_COUNT
