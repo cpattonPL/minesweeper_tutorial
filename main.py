@@ -1,0 +1,75 @@
+# Demo from freeCodeCamp.org on Youtube
+# https://www.youtube.com/watch?v=OqbGRZx4xUc
+# Python Game Development Project Using OOP – Minesweeper Tutorial (w/ Tkinter)
+# Created April 2023
+from tkinter import *
+import minesweeper_settings
+import utils
+from cell import Cell
+
+root = Tk()
+# Override the settings of the window
+root.configure(bg='black')
+root.geometry(f'{minesweeper_settings.WIDTH}x{minesweeper_settings.HEIGHT}')
+root.title('Minesweeper by Carroll')
+root.resizable(False,False)
+
+top_frame = Frame(
+    root,
+    bg='black', #Change later to black
+    width=minesweeper_settings.WIDTH,
+    height=utils.height_prct(25)
+)
+top_frame.place(x=0,y=0)
+
+game_title = Label(
+    top_frame,
+    bg='black',
+    fg= 'white',
+    text='Minesweeper by Carroll',
+    font=('', 48)
+)
+
+game_title.place(
+    x=utils.width_prct(25),
+    y=0
+)
+
+left_frame = Frame(
+    root,
+    bg='black',
+    width=utils.width_prct(25),
+    height=utils.height_prct(75)
+)
+left_frame.place(x=0,y=utils.height_prct(25))
+
+center_frame = Frame(
+    root,
+    bg= 'black',
+    width=utils.width_prct(75),
+    height=utils.height_prct(75)
+)
+
+center_frame.place(
+    x=utils.width_prct(25),
+    y=utils.height_prct(25)
+)
+
+for x in range(minesweeper_settings.GRID_SIZE):
+    for y in range(minesweeper_settings.GRID_SIZE):
+        c = Cell(x, y)
+        c.create_btn_object(center_frame)
+        c.cell_btn_object.grid(
+            column=x,
+            row=y
+        )
+
+# Call the label from the Cell class
+Cell.create_cell_count_label(left_frame)
+Cell.cell_count_label_object.place(x=0,y=0)
+
+Cell.randomize_mines()
+
+
+# Run the window
+root.mainloop()
